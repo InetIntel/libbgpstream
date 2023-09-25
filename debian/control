@@ -1,7 +1,7 @@
 Source: libbgpstream2
 Section: libs
 Priority: optional
-Maintainer: CAIDA Software Maintainer <software@caida.org>
+Maintainer: Shane Alcock <shane@alcock.co.nz>
 Build-Depends: debhelper (>= 10), autotools-dev,
  libwandio1-dev (>=4.2.0), librdkafka-dev (>=0.11.3),
  zlib1g-dev, libbz2-dev, libcurl4-openssl-dev
