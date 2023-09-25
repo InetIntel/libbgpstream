@@ -17,8 +17,6 @@ libbgpstream2 (2.3.0) unstable; urgency=medium
   * Bring the common submodule up to date.
   * Resource manager: place limit on number of unconfirmed opened elements.
 
- -- Brendon Jones <software@caida.org>  Fri, 09 Feb 2024 18:43:11 +1300
-
 libbgpstream2 (2.2.0) unstable; urgency=medium
 
   * Kafka: Kafka transport performance improvements
