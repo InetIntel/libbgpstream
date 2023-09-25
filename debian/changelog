@@ -2,7 +2,7 @@ libbgpstream2 (2.2.0-1) unstable; urgency=medium
 
   * Re-package for more recent debian/ubuntu distros
 
- -- Shane Alcock <shane@alcock.co.nz>  Mon, 25 Sep 2023 14:28:170 +1300
+ -- Shane Alcock <shane@alcock.co.nz>  Mon, 25 Sep 2023 14:28:17 +1300
 
 libbgpstream2 (2.2.0) unstable; urgency=medium
 
