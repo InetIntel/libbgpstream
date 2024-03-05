@@ -265,7 +265,6 @@ AS_IF([test "x$ax_pthread_check_macro" = "x--"],
       [ax_pthread_check_cond=0],
       [ax_pthread_check_cond="!defined($ax_pthread_check_macro)"])
 
-
 if test "x$ax_pthread_ok" = "xno"; then
 for ax_pthread_try_flag in $ax_pthread_flags; do
 
@@ -520,3 +519,4 @@ else
 fi
 AC_LANG_POP
 ])dnl AX_PTHREAD
+
