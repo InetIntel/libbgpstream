@@ -30,7 +30,7 @@ AC_PREREQ([2.68])
 # bgpstream package version
 m4_define([PKG_MAJOR_VERSION], [2])
 m4_define([PKG_MID_VERSION],   [3])
-m4_define([PKG_MINOR_VERSION], [0])
+m4_define([PKG_MINOR_VERSION], [1])
 
 AC_INIT([libbgpstream], PKG_MAJOR_VERSION.PKG_MID_VERSION.PKG_MINOR_VERSION, [bgpstream-info@caida.org])
 
@@ -41,7 +41,7 @@ AC_INIT([libbgpstream], PKG_MAJOR_VERSION.PKG_MID_VERSION.PKG_MINOR_VERSION, [bg
 # elseif changes only add to ABI:     CURRENT++, REVISION=0, AGE++
 # else changes do not affect ABI:     REVISION++
 LIBBGPSTREAM_SHLIB_CURRENT=4
-LIBBGPSTREAM_SHLIB_REVISION=0
+LIBBGPSTREAM_SHLIB_REVISION=1
 LIBBGPSTREAM_SHLIB_AGE=0
 
 ######################################################################

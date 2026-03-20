@@ -1,3 +1,10 @@
+libbgpstream2 (2.3.1~gt001) unstable; urgency=medium
+
+  * Fix bug where dataAddedSince parameter was being added to requests for
+    paginated historical data from the broker.
+
+ -- Shane Alcock <shane@alcock.co.nz>  Fri, 20 Mar 2026 17:21:44 +1300
+
 libbgpstream2 (2.3.0) unstable; urgency=medium
 
   * Downgrade parsebgp invalid message log to warning.
