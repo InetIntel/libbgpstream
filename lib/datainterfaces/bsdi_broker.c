@@ -902,6 +902,7 @@ void bsdi_broker_destroy(bsdi_t *di)
 
 int bsdi_broker_update_resources(bsdi_t *di)
 {
+  bgpstream_filter_mgr_t *filter_mgr = BSDI_GET_FILTER_MGR(di);
 
   // we need to set two parameters:
   //  - dataAddedSince ("time" from last response we got)
@@ -919,7 +920,8 @@ int bsdi_broker_update_resources(bsdi_t *di)
 
   int success = 0;
 
-  if (STATE->last_response_time > 0) {
+  if (STATE->last_response_time > 0 &&
+      (TIF == NULL || TIF->end_time == BGPSTREAM_FOREVER)) {
     // need to add dataAddedSince
     if (snprintf(buf, BUFLEN, "%" PRIu32, STATE->last_response_time) >=
         BUFLEN) {
