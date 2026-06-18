@@ -130,6 +130,15 @@ static int append_segments_all(bgpstream_as_path_t *bs_path,
 
   for (i = 0; i < pbgp_path->segs_cnt; i++) {
     seg = &pbgp_path->segs[i];
+
+    // ensure we're not going to wander off the end of as_path_types array
+    if (seg->type < PARSEBGP_BGP_UPDATE_AS_PATH_SEG_AS_SET ||
+        seg->type > PARSEBGP_BGP_UPDATE_AS_PATH_SEG_CONFED_SET) {
+      bgpstream_log(BGPSTREAM_LOG_ERR, "Unknown AS Path segment type %d",
+                    seg->type);
+      return -1;
+    }
+
     if (bgpstream_as_path_append(bs_path, as_path_types[seg->type], seg->asns,
                                  seg->asns_cnt) != 0) {
       return -1;
