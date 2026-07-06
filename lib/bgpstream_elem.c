@@ -92,6 +92,15 @@ void bgpstream_elem_clear(bgpstream_elem_t *elem)
 {
   bgpstream_as_path_clear(elem->as_path);
   bgpstream_community_set_clear(elem->communities);
+
+  /* reset the remaining type-dependent fields so that a re-used elem does not
+   * leak stale values (e.g. path attributes from a previous elem) */
+  elem->nexthop.version = BGPSTREAM_ADDR_VERSION_UNKNOWN;
+  elem->has_origin = 0;
+  elem->has_med = 0;
+  elem->has_local_pref = 0;
+  elem->atomic_aggregate = 0;
+  elem->aggregator.has_aggregator = 0;
 }
 
 bgpstream_elem_t *bgpstream_elem_copy(bgpstream_elem_t *dst,
@@ -129,6 +138,7 @@ int bgpstream_elem_type_snprintf(char *buf, size_t len,
     case BGPSTREAM_ELEM_TYPE_ANNOUNCEMENT: ch = 'A'; break;
     case BGPSTREAM_ELEM_TYPE_WITHDRAWAL:   ch = 'W'; break;
     case BGPSTREAM_ELEM_TYPE_PEERSTATE:    ch = 'S'; break;
+    case BGPSTREAM_ELEM_TYPE_END_OF_RIB:   ch = 'E'; break;
     default:
       if (len > 0)
         buf[0] = '\0';
@@ -375,6 +385,30 @@ char *bgpstream_elem_custom_snprintf(char *buf, size_t len,
     written += c;
     buf_p += c;
 
+    /* END OF LINE */
+    break;
+
+  case BGPSTREAM_ELEM_TYPE_END_OF_RIB:
+
+    /* PREFIX (AFI indicator) */
+    if (bgpstream_pfx_snprintf(buf_p, B_REMAIN, &(elem->prefix)) == NULL) {
+      if (errno != ENOSPC)
+        bgpstream_log(BGPSTREAM_LOG_ERR, "Malformed prefix (E)");
+      return NULL;
+    }
+    SEEK_STR_END;
+    ADD_PIPE;
+    /* NEXT HOP (empty) */
+    ADD_PIPE;
+    /* AS PATH (empty) */
+    ADD_PIPE;
+    /* ORIGIN AS (empty) */
+    ADD_PIPE;
+    /* COMMUNITIES (empty) */
+    ADD_PIPE;
+    /* OLD STATE (empty) */
+    ADD_PIPE;
+    /* NEW STATE (empty) */
     /* END OF LINE */
     break;
 
