@@ -66,7 +66,8 @@
   "<origin-AS>|<communities>|<old-state>|<new-state>\n"                        \
   "#\n"                                                                        \
   "# <rec-type>: R RIB, U Update\n"                                            \
-  "# <elem-type>: R RIB, A announcement, W withdrawal, S state message\n"      \
+  "# <elem-type>: R RIB, A announcement, W withdrawal, S state message,\n"     \
+  "#              E end-of-RIB marker\n"                                        \
   "#\n"
 
 enum rpki_options {
@@ -769,6 +770,12 @@ static int print_elem_bgpdump(bgpstream_record_t *record,
       NULL) {
     fprintf(stderr, "ERROR: Could not convert record/elem to string\n");
     return -1;
+  }
+
+  /* Some elem types (e.g. End-of-RIB markers) have no representation in the
+   * bgpdump output format and produce an empty string; skip them. */
+  if (buf[0] == '\0') {
+    return 0;
   }
 
   printf("%s\n", buf);
