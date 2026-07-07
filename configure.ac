@@ -102,6 +102,11 @@ AC_TYPE_UINT32_T
 AC_TYPE_UINT64_T
 AC_TYPE_UINT8_T
 
+# C23 doesn't like some of the code in the patricia submodule
+if test "x$GCC" = "xyes"; then
+  CFLAGS="$CFLAGS -std=gnu17"
+fi
+
 # Checks for library functions.
 AC_FUNC_MALLOC
 AC_FUNC_REALLOC
